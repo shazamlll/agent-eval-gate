@@ -17,8 +17,9 @@
   hedged miss.
 - **CI eval gate** (`.github/workflows/eval-gate.yml`): every pull request
   runs the tests and the eval; the runner exits non-zero when the gate
-  fails, so a regression cannot be merged. The eval report is uploaded as
-  an artifact.
+  fails. The eval report is uploaded even for a failed gate. To prevent
+  merging a failing PR, configure branch protection or a ruleset requiring
+  this check; a workflow alone does not enforce merge blocking.
 
 ## How it works
 
@@ -33,8 +34,8 @@
 4. `eval_gate/runner.py` — runs the eval, prints a summary, writes
    `runs/report.md` and `runs/results.json`, and exits 1 when the gate fails.
 5. `eval_gate/llm_judge.py` — an LLM-as-judge adapter (same rubric, scores
-   from a model via an OpenAI-compatible endpoint). **Not wired up** — see
-   below.
+   from a model via an OpenAI-compatible endpoint). Opt-in and covered by
+   mocked HTTP tests; live provider behavior has not been verified.
 
 ## Run it locally
 
@@ -53,26 +54,25 @@ Requires Python 3.11+. No API keys, no network access.
 On the stub answerer, the gate passes: 30/30 cases pass, 0 critical
 failures (the exact numbers are in `runs/` after a local run). The
 interesting part is not the score — the stub is deliberately easy to grade
-— but the machinery: change a threshold in `eval_gate/config.py`, or break
-the stub in `eval_gate/catalog.py`, and the gate fails the way a real
+— but the machinery: break the stub in `eval_gate/catalog.py`, and the gate fails the way a real
 regression gate should. `tests/test_gate.py::test_broken_answerer_fails_gate`
 covers exactly that.
 
 ## Remaining work
 
-For a follow-up agent (deployment / wiring — intentionally not done here):
-
-- [ ] Push `.github/workflows/eval-gate.yml` to GitHub first (it is written
-      but not on the remote yet: the token used for the first push lacked
-      the `workflow` scope, so GitHub refused that one file). Then verify
-      the Actions gate on a real PR: open a PR that lowers a score (e.g.
-      break the stub answerer) and confirm the check goes red, then revert.
-- [ ] Wire the LLM judge: pick a cheap model (e.g. a Gemini flash-tier
-      model), set `GEMINI_API_KEY` or `OPENAI_API_KEY`, run
-      `python -m eval_gate.runner --judge llm`, and compare its agreement
-      with the deterministic judge on the same 30 cases. The prompt and
-      response parsing in `eval_gate/llm_judge.py` have never been run
-      against a live endpoint.
+- [x] Restore the GitHub Actions workflow, including failed-run report upload.
+- [x] Test LLM request shape, score validation and malformed response handling
+      without credentials. Invalid scores fail closed instead of being coerced.
+- [x] Verify pass/fail Actions runs on a real PR and download both report artifacts:
+      [passing run](https://github.com/shazamlll/agent-eval-gate/actions/runs/43691837619),
+      [negative control](https://github.com/shazamlll/agent-eval-gate/actions/runs/43691906295).
+      The negative control scored 2/30 with 3 critical failures; it was reverted.
+      The main branch had no branch protection at verification time, so these
+      checks demonstrate failure detection, not enforced merge blocking.
+- [ ] Run a live LLM judge and compare agreement on the same 30 cases.
+      `OPENAI_API_KEY` selects OpenAI; with only `GEMINI_API_KEY`, the
+      Gemini OpenAI-compatible endpoint is selected. Optional `LLM_BASE_URL`
+      and `LLM_MODEL` override defaults. Never put keys in files or commits.
 - [ ] Optional: add a second eval set (e.g. multi-turn questions) once the
       LLM judge is verified.
 

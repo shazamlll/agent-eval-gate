@@ -10,7 +10,7 @@ the GitHub Actions check fail on a regression.
 Usage:
     python -m eval_gate.runner [--output-dir runs] [--judge deterministic]
     python -m eval_gate.runner --judge llm   # needs OPENAI_API_KEY or
-                                             # GEMINI_API_KEY; not wired up
+                                             # GEMINI_API_KEY
 """
 
 from __future__ import annotations

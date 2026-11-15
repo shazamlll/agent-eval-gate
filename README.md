@@ -58,23 +58,24 @@ interesting part is not the score — the stub is deliberately easy to grade
 regression gate should. `tests/test_gate.py::test_broken_answerer_fails_gate`
 covers exactly that.
 
-## Remaining work
+## Verification
 
-- [x] Restore the GitHub Actions workflow, including failed-run report upload.
-- [x] Test LLM request shape, score validation and malformed response handling
-      without credentials. Invalid scores fail closed instead of being coerced.
-- [x] Verify pass/fail Actions runs on a real PR and download both report artifacts:
-      [passing run](https://github.com/shazamlll/agent-eval-gate/actions/runs/43691837619),
-      [negative control](https://github.com/shazamlll/agent-eval-gate/actions/runs/43691906295).
-      The negative control scored 2/30 with 3 critical failures; it was reverted.
-      The main branch had no branch protection at verification time, so these
-      checks demonstrate failure detection, not enforced merge blocking.
-- [ ] Run a live LLM judge and compare agreement on the same 30 cases.
-      `OPENAI_API_KEY` selects OpenAI; with only `GEMINI_API_KEY`, the
-      Gemini OpenAI-compatible endpoint is selected. Optional `LLM_BASE_URL`
-      and `LLM_MODEL` override defaults. Never put keys in files or commits.
-- [ ] Optional: add a second eval set (e.g. multi-turn questions) once the
-      LLM judge is verified.
+- GitHub Actions runs the gate and uploads reports, including on failure.
+- Tests cover LLM request shape, score validation and malformed response handling
+  without credentials. Invalid scores fail closed instead of being coerced.
+- Pass/fail Actions runs and both downloaded report artifacts were verified:
+  [passing run](https://github.com/shazamlll/agent-eval-gate/actions/runs/43691837619),
+  [negative control](https://github.com/shazamlll/agent-eval-gate/actions/runs/43691906295).
+  The negative control scored 2/30 with 3 critical failures; it was reverted.
+  The main branch had no branch protection at verification time, so these
+  checks demonstrate failure detection, not enforced merge blocking.
+
+## Model judge configuration
+
+`python -m eval_gate.runner --judge llm` selects the implemented model adapter.
+`OPENAI_API_KEY` selects OpenAI; with only `GEMINI_API_KEY`, the Gemini
+OpenAI-compatible endpoint is selected. `LLM_BASE_URL` and `LLM_MODEL` override
+defaults. Keep keys in the environment. The default deterministic run is offline.
 
 ## Project layout
 

@@ -11,6 +11,12 @@ CASE = {"id": "synthetic-1", "question": "What costs $12?",
         "gold_facts": ["$12"], "distractors": ["$99"]}
 
 
+@pytest.fixture(autouse=True)
+def isolated_configuration(monkeypatch):
+    for key in ("OPENAI_API_KEY", "GEMINI_API_KEY", "LLM_BASE_URL", "LLM_MODEL"):
+        monkeypatch.delenv(key, raising=False)
+
+
 def response(scores):
     return io.BytesIO(json.dumps({"choices": [{"message": {
         "content": json.dumps(scores)}}]}).encode())
@@ -32,6 +38,14 @@ def test_request_and_valid_rubric():
     assert json.loads(request.data)["response_format"] == {"type": "json_object"}
     assert result["passed"] is True
     assert result["total"] == 5
+
+
+def test_custom_endpoint_and_model(monkeypatch):
+    monkeypatch.setenv("LLM_BASE_URL", "https://example.invalid/v1/")
+    monkeypatch.setenv("LLM_MODEL", "synthetic-model")
+    judge = LLMJudge(api_key="test-only")
+    assert judge.base_url == "https://example.invalid/v1"
+    assert judge.model == "synthetic-model"
 
 
 @pytest.mark.parametrize("scores", [

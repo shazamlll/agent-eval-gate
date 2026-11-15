@@ -63,7 +63,12 @@ covers exactly that.
 - [x] Restore the GitHub Actions workflow, including failed-run report upload.
 - [x] Test LLM request shape, score validation and malformed response handling
       without credentials. Invalid scores fail closed instead of being coerced.
-- [ ] Verify pass/fail Actions runs on a real PR and download report artifacts.
+- [x] Verify pass/fail Actions runs on a real PR and download both report artifacts:
+      [passing run](https://github.com/shazamlll/agent-eval-gate/actions/runs/43691837619),
+      [negative control](https://github.com/shazamlll/agent-eval-gate/actions/runs/43691906295).
+      The negative control scored 2/30 with 3 critical failures; it was reverted.
+      The main branch had no branch protection at verification time, so these
+      checks demonstrate failure detection, not enforced merge blocking.
 - [ ] Run a live LLM judge and compare agreement on the same 30 cases.
       `OPENAI_API_KEY` selects OpenAI; with only `GEMINI_API_KEY`, the
       Gemini OpenAI-compatible endpoint is selected. Optional `LLM_BASE_URL`

@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-eval-gate"
+version = "1.0.0"
+description = "Portfolio demo: rubric LLM-judge design, pass thresholds, and a CI eval gate"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

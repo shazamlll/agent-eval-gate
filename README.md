@@ -62,9 +62,11 @@ covers exactly that.
 
 For a follow-up agent (deployment / wiring — intentionally not done here):
 
-- [ ] Verify the Actions gate on a real PR: open a PR that lowers a score
-      (e.g. break the stub answerer) and confirm the check goes red, then
-      revert.
+- [ ] Push `.github/workflows/eval-gate.yml` to GitHub first (it is written
+      but not on the remote yet: the token used for the first push lacked
+      the `workflow` scope, so GitHub refused that one file). Then verify
+      the Actions gate on a real PR: open a PR that lowers a score (e.g.
+      break the stub answerer) and confirm the check goes red, then revert.
 - [ ] Wire the LLM judge: pick a cheap model (e.g. a Gemini flash-tier
       model), set `GEMINI_API_KEY` or `OPENAI_API_KEY`, run
       `python -m eval_gate.runner --judge llm`, and compare its agreement

@@ -1,18 +1,6 @@
-"""LLM-as-judge adapter (NOT wired up by default).
+"""Opt-in OpenAI-compatible rubric judge; offline tests mock the HTTP boundary.
 
-This module exists to show the shape of a model-based judge: same rubric
-as the deterministic judge in judge.py, but the scores come from an LLM
-instead of string matching. It is deliberately OFF by default:
-
-- the runner only uses it when called with --judge llm
-- it needs an API key in the environment (GEMINI_API_KEY or OPENAI_API_KEY)
-- it has never been run against a real model in this repo; the prompt and
-  the response parsing are untested against live endpoints
-
-Do not treat this as a working integration. Wiring it up (pick a cheap
-model, e.g. a Gemini flash-tier model, set the key, run it, and compare its
-agreement with the deterministic judge on this same eval set) is listed
-under "Remaining work" in the README.
+No live provider result is claimed. The deterministic judge remains the default.
 """
 
 from __future__ import annotations
@@ -50,16 +38,21 @@ class LLMJudge:
     """
 
     def __init__(self, api_key: str | None = None,
-                 base_url: str = "https://api.openai.com/v1",
-                 model: str = "gpt-4o-mini") -> None:
+                 base_url: str | None = None,
+                 model: str | None = None) -> None:
+        use_gemini = not (api_key or os.environ.get("OPENAI_API_KEY"))
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY") \
             or os.environ.get("GEMINI_API_KEY")
         if not self.api_key:
             raise RuntimeError(
                 "LLM judge needs an API key: set OPENAI_API_KEY or "
                 "GEMINI_API_KEY. The deterministic judge (default) needs none.")
-        self.base_url = base_url.rstrip("/")
-        self.model = model
+        default_url = ("https://generativelanguage.googleapis.com/v1beta/openai"
+                       if use_gemini else "https://api.openai.com/v1")
+        self.base_url = (base_url or os.environ.get("LLM_BASE_URL")
+                         or default_url).rstrip("/")
+        self.model = (model or os.environ.get("LLM_MODEL")
+                      or ("gemini-2.5-flash" if use_gemini else "gpt-4o-mini"))
 
     def score_case(self, case: dict, answer: str) -> dict:
         prompt = RUBRIC_PROMPT.format(
@@ -81,22 +74,31 @@ class LLMJudge:
                      "Content-Type": "application/json"},
             method="POST",
         )
-        with urllib.request.urlopen(request, timeout=60) as response:
-            body = json.loads(response.read())
-        content = body["choices"][0]["message"]["content"]
-        scores = json.loads(content)
-        total = int(scores["groundedness"]) + int(scores["relevance"]) \
-            + int(scores["accuracy"])
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response:
+                body = json.loads(response.read())
+            scores = json.loads(body["choices"][0]["message"]["content"])
+        except (OSError, ValueError, KeyError, IndexError, TypeError):
+            # Do not echo provider error bodies, credentials or raw model output.
+            raise RuntimeError("LLM judge request failed or returned malformed JSON") from None
+        if (not isinstance(scores, dict)
+                or set(scores) != {"groundedness", "relevance", "accuracy"}
+                or any(type(scores[k]) is not int or scores[k] not in allowed
+                       for k, allowed in (("groundedness", (0, 1, 2)),
+                                          ("relevance", (0, 1, 2)),
+                                          ("accuracy", (0, 2))))):
+            raise RuntimeError("LLM judge returned invalid rubric scores")
+        total = sum(scores.values())
         return {
             "id": case["id"],
             "question": case["question"],
             "answer": answer,
-            "groundedness": int(scores["groundedness"]),
-            "relevance": int(scores["relevance"]),
-            "accuracy": int(scores["accuracy"]),
+            "groundedness": scores["groundedness"],
+            "relevance": scores["relevance"],
+            "accuracy": scores["accuracy"],
             "total": total,
-            "passed": total >= 4 and int(scores["accuracy"]) == 2,
-            "critical": int(scores["accuracy"]) == 0,
+            "passed": total >= 4 and scores["accuracy"] == 2,
+            "critical": scores["accuracy"] == 0,
             "matched_distractors": [],
             "judge": f"llm:{self.model}",
         }

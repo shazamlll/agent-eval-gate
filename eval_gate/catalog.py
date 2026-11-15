@@ -184,7 +184,3 @@ def answer(question: str) -> str:
         return f"Books out of stock: {listed}."
 
     return "I couldn't find an answer to that in the catalog."
-
-# Temporary negative control: reverted after the Actions failure check.
-def answer(question: str) -> str:
-    return 'Everything is in stock and costs 99.99.'

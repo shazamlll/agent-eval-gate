@@ -1,0 +1,47 @@
+# Same 5 cases, same stub-answerer provider -- but the judge is an
+# LLM-as-a-judge (llm-rubric) instead of the deterministic
+# contains/not-contains assertions in promptfooconfig.yaml.
+# This is the config that mirrors the OpenAI Evals -> promptfoo migration
+# in the offer draft: the grader becomes a promptfoo assertion, and the
+# rubric is the agent-eval-gate one (groundedness / relevance / accuracy,
+# 0-2 each, fail if accuracy < 2 or total < 4).
+#
+# REQUIRES an API key: the llm-rubric grader calls a model
+# (default openai:gpt-4o-mini). Set OPENAI_API_KEY before running.
+# Not run in the offline trial (2026-11-24) -- see promptfoo/README.md.
+description: "agent-eval-gate demo: bookstore retrieval QA, first 5 cases (LLM judge)"
+
+providers:
+  - file://stub_provider.py
+
+prompts:
+  - "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:"
+
+defaultTest:
+  assert:
+    - type: llm-rubric
+      value: "You are grading a bookstore QA answer. GOLD FACTS a good answer must state: {{gold_facts}}. WRONG FACTS it must NOT state: {{distractor}}. Score groundedness, relevance, accuracy 0-2 each. Fail if accuracy < 2 or total < 4."
+    - type: not-contains
+      value: "{{distractor}}"
+
+tests:
+  - vars:
+      question: "Which books did Ada Marsh write?"
+      gold_facts: "The Clockmaker's Daughter; Salt & Cinder"
+      distractor: "(none)"
+  - vars:
+      question: "How much does 'The Clockmaker's Daughter' cost?"
+      gold_facts: "$18.99"
+      distractor: "$24.50"
+  - vars:
+      question: "Is 'The Cartographer's Apprentice' in stock?"
+      gold_facts: "out of stock"
+      distractor: "is in stock"
+  - vars:
+      question: "Which fantasy books are in the catalog?"
+      gold_facts: "Salt & Cinder; Storms Over Aldermere"
+      distractor: "(none)"
+  - vars:
+      question: "What is the cheapest book in the catalog?"
+      gold_facts: "How to Build a Treehouse; $12.99"
+      distractor: "A Field Guide to Vanishing Birds"

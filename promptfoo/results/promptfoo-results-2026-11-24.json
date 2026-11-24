@@ -1,0 +1,802 @@
+{
+  "evalId": "eval-dzF-2026-11-24T06:42:36",
+  "results": {
+    "version": 3,
+    "timestamp": "2026-11-24T06:42:36.993Z",
+    "prompts": [
+      {
+        "id": "1aa48c263aba98be136ad0252e60d90876c4726639409a7261cce43d016166b8",
+        "raw": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:",
+        "label": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:",
+        "provider": "python:stub_provider.py:default",
+        "metrics": {
+          "score": 5,
+          "testPassCount": 5,
+          "testFailCount": 0,
+          "testErrorCount": 0,
+          "testCacheHitCount": 0,
+          "assertPassCount": 11,
+          "assertFailCount": 0,
+          "totalLatencyMs": 953,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 5,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "namedScoreWeights": {},
+          "cost": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "The Clockmaker's Daughter"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "Salt & Cinder"
+              }
+            }
+          ]
+        },
+        "id": "9a6de255-ac80-4758-927e-a089d49f451f",
+        "latencyMs": 205,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: Which books did Ada Marsh write?\n\nAnswer:",
+          "label": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:",
+          "config": {}
+        },
+        "promptId": "1aa48c263aba98be136ad0252e60d90876c4726639409a7261cce43d016166b8",
+        "promptIdx": 0,
+        "provider": {
+          "id": "python:stub_provider.py:default",
+          "label": ""
+        },
+        "response": {
+          "output": "Books by Ada Marsh: 'The Clockmaker's Daughter' by Ada Marsh ($18.99, 2021, in stock); 'Salt & Cinder' by Ada Marsh ($24.50, 2023, in stock).",
+          "cached": false
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "vars": {
+            "question": "Which books did Ada Marsh write?",
+            "gold_facts": "The Clockmaker's Daughter; Salt & Cinder",
+            "distractor": "(none)"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "The Clockmaker's Daughter"
+            },
+            {
+              "type": "contains",
+              "value": "Salt & Cinder"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "tokenUsage": {
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "total": 0,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "question": "Which books did Ada Marsh write?",
+          "gold_facts": "The Clockmaker's Daughter; Salt & Cinder",
+          "distractor": "(none)"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "$18.99"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "not-contains",
+                "value": "$24.50"
+              }
+            }
+          ]
+        },
+        "id": "04ff71eb-0a85-4d23-9300-76d58ce8b297",
+        "latencyMs": 228,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: How much does 'The Clockmaker's Daughter' cost?\n\nAnswer:",
+          "label": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:",
+          "config": {}
+        },
+        "promptId": "1aa48c263aba98be136ad0252e60d90876c4726639409a7261cce43d016166b8",
+        "promptIdx": 0,
+        "provider": {
+          "id": "python:stub_provider.py:default",
+          "label": ""
+        },
+        "response": {
+          "output": "'The Clockmaker's Daughter' costs $18.99.",
+          "cached": false
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "vars": {
+            "question": "How much does 'The Clockmaker's Daughter' cost?",
+            "gold_facts": "$18.99",
+            "distractor": "$24.50"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "$18.99"
+            },
+            {
+              "type": "not-contains",
+              "value": "$24.50"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "tokenUsage": {
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "total": 0,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "question": "How much does 'The Clockmaker's Daughter' cost?",
+          "gold_facts": "$18.99",
+          "distractor": "$24.50"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "out of stock"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "not-contains",
+                "value": "is in stock"
+              }
+            }
+          ]
+        },
+        "id": "929cb0bc-babc-4c7c-bd89-6b6518a0fcd3",
+        "latencyMs": 237,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: Is 'The Cartographer's Apprentice' in stock?\n\nAnswer:",
+          "label": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:",
+          "config": {}
+        },
+        "promptId": "1aa48c263aba98be136ad0252e60d90876c4726639409a7261cce43d016166b8",
+        "promptIdx": 0,
+        "provider": {
+          "id": "python:stub_provider.py:default",
+          "label": ""
+        },
+        "response": {
+          "output": "'The Cartographer's Apprentice' by Ines Duarte is out of stock.",
+          "cached": false
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "vars": {
+            "question": "Is 'The Cartographer's Apprentice' in stock?",
+            "gold_facts": "out of stock",
+            "distractor": "is in stock"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "out of stock"
+            },
+            {
+              "type": "not-contains",
+              "value": "is in stock"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 2,
+        "tokenUsage": {
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "total": 0,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "question": "Is 'The Cartographer's Apprentice' in stock?",
+          "gold_facts": "out of stock",
+          "distractor": "is in stock"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "Salt & Cinder"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "Storms Over Aldermere"
+              }
+            }
+          ]
+        },
+        "id": "e008a25b-12fc-4131-ad66-7b9c80a98991",
+        "latencyMs": 247,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: Which fantasy books are in the catalog?\n\nAnswer:",
+          "label": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:",
+          "config": {}
+        },
+        "promptId": "1aa48c263aba98be136ad0252e60d90876c4726639409a7261cce43d016166b8",
+        "promptIdx": 0,
+        "provider": {
+          "id": "python:stub_provider.py:default",
+          "label": ""
+        },
+        "response": {
+          "output": "Fantasy books: 'Salt & Cinder' by Ada Marsh ($24.50, 2023, in stock); 'Storms Over Aldermere' by Henrik Solberg ($23.00, 2022, in stock).",
+          "cached": false
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "vars": {
+            "question": "Which fantasy books are in the catalog?",
+            "gold_facts": "Salt & Cinder; Storms Over Aldermere",
+            "distractor": "(none)"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "Salt & Cinder"
+            },
+            {
+              "type": "contains",
+              "value": "Storms Over Aldermere"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 3,
+        "tokenUsage": {
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "total": 0,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "question": "Which fantasy books are in the catalog?",
+          "gold_facts": "Salt & Cinder; Storms Over Aldermere",
+          "distractor": "(none)"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "How to Build a Treehouse"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "$12.99"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "not-contains",
+                "value": "A Field Guide to Vanishing Birds"
+              }
+            }
+          ]
+        },
+        "id": "222e36ad-94d5-45a6-9219-f248fe18b3ab",
+        "latencyMs": 36,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: What is the cheapest book in the catalog?\n\nAnswer:",
+          "label": "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:",
+          "config": {}
+        },
+        "promptId": "1aa48c263aba98be136ad0252e60d90876c4726639409a7261cce43d016166b8",
+        "promptIdx": 0,
+        "provider": {
+          "id": "python:stub_provider.py:default",
+          "label": ""
+        },
+        "response": {
+          "output": "How to Build a Treehouse ($12.99) is the cheapest book in the catalog.",
+          "cached": false
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "vars": {
+            "question": "What is the cheapest book in the catalog?",
+            "gold_facts": "How to Build a Treehouse; $12.99",
+            "distractor": "A Field Guide to Vanishing Birds"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "How to Build a Treehouse"
+            },
+            {
+              "type": "contains",
+              "value": "$12.99"
+            },
+            {
+              "type": "not-contains",
+              "value": "A Field Guide to Vanishing Birds"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 4,
+        "tokenUsage": {
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "total": 0,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "question": "What is the cheapest book in the catalog?",
+          "gold_facts": "How to Build a Treehouse; $12.99",
+          "distractor": "A Field Guide to Vanishing Birds"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      }
+    ],
+    "stats": {
+      "successes": 5,
+      "failures": 0,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 0,
+        "completion": 0,
+        "cached": 0,
+        "total": 0,
+        "numRequests": 5,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          }
+        }
+      },
+      "durationMs": 296,
+      "evaluationDurationMs": 296
+    }
+  },
+  "config": {
+    "tags": {},
+    "description": "agent-eval-gate demo: bookstore retrieval QA, first 5 cases (offline)",
+    "prompts": [
+      "You are a helpful assistant for a fictional online bookstore. Answer the question using only the catalog.\n\nQuestion: {{question}}\n\nAnswer:"
+    ],
+    "providers": [
+      "file://stub_provider.py"
+    ],
+    "tests": [
+      {
+        "vars": {
+          "question": "Which books did Ada Marsh write?",
+          "gold_facts": "The Clockmaker's Daughter; Salt & Cinder",
+          "distractor": "(none)"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "The Clockmaker's Daughter"
+          },
+          {
+            "type": "contains",
+            "value": "Salt & Cinder"
+          }
+        ]
+      },
+      {
+        "vars": {
+          "question": "How much does 'The Clockmaker's Daughter' cost?",
+          "gold_facts": "$18.99",
+          "distractor": "$24.50"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "$18.99"
+          },
+          {
+            "type": "not-contains",
+            "value": "$24.50"
+          }
+        ]
+      },
+      {
+        "vars": {
+          "question": "Is 'The Cartographer's Apprentice' in stock?",
+          "gold_facts": "out of stock",
+          "distractor": "is in stock"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "out of stock"
+          },
+          {
+            "type": "not-contains",
+            "value": "is in stock"
+          }
+        ]
+      },
+      {
+        "vars": {
+          "question": "Which fantasy books are in the catalog?",
+          "gold_facts": "Salt & Cinder; Storms Over Aldermere",
+          "distractor": "(none)"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "Salt & Cinder"
+          },
+          {
+            "type": "contains",
+            "value": "Storms Over Aldermere"
+          }
+        ]
+      },
+      {
+        "vars": {
+          "question": "What is the cheapest book in the catalog?",
+          "gold_facts": "How to Build a Treehouse; $12.99",
+          "distractor": "A Field Guide to Vanishing Birds"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "How to Build a Treehouse"
+          },
+          {
+            "type": "contains",
+            "value": "$12.99"
+          },
+          {
+            "type": "not-contains",
+            "value": "A Field Guide to Vanishing Birds"
+          }
+        ]
+      }
+    ],
+    "env": {},
+    "outputPath": [
+      "results/promptfoo-results-2026-11-24.json"
+    ],
+    "extensions": [],
+    "metadata": {},
+    "evaluateOptions": {},
+    "basePath": "/home/hatch/workspace/repos/agent-eval-gate/promptfoo"
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.126.0",
+    "nodeVersion": "v24.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "exportedAt": "2026-11-24T06:42:37.417Z",
+    "evaluationCreatedAt": "2026-11-24T06:42:36.993Z"
+  },
+  "vars": [
+    "question",
+    "gold_facts",
+    "distractor"
+  ],
+  "runtimeOptions": {
+    "eventSource": "cli",
+    "showProgressBar": true,
+    "repeat": 1,
+    "maxConcurrency": 4,
+    "cache": false
+  }
+}

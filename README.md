@@ -77,11 +77,26 @@ covers exactly that.
 OpenAI-compatible endpoint is selected. `LLM_BASE_URL` and `LLM_MODEL` override
 defaults. Keep keys in the environment. The default deterministic run is offline.
 
+## promptfoo port (demo supplement)
+
+`promptfoo/` ports the first 5 cases to promptfoo (`promptfooconfig.yaml`,
+offline: stub answerer + `contains`/`not-contains` assertions) plus an
+`llm-rubric` variant (`promptfooconfig.llm.yaml`, needs `OPENAI_API_KEY`).
+It demonstrates the OpenAI Evals -> promptfoo migration shape from the
+official guide. Offline trial 2026-11-24: 5/5 pass, agrees 5/5 with the
+local deterministic judge, $0 API cost. Details and honest limits in
+`promptfoo/README.md`.
+
 ## Project layout
 
 ```
 agent-eval-gate/
 ├── data/eval_set.json            # 30 synthetic retrieval QA cases
+├── promptfoo/                    # promptfoo port (demo supplement)
+│   ├── promptfooconfig.yaml      # offline: stub provider + deterministic assertions
+│   ├── promptfooconfig.llm.yaml  # LLM-judge variant (needs OPENAI_API_KEY)
+│   ├── stub_provider.py          # provider wrapping eval_gate.catalog.answer
+│   └── results/                  # promptfoo run outputs
 ├── eval_gate/
 │   ├── catalog.py                # synthetic catalog + stub answerer
 │   ├── judge.py                  # deterministic rubric judge (default)
